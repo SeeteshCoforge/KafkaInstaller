@@ -1,0 +1,31 @@
+server:
+  port: 9999
+
+spring:
+  kafka:
+    bootstrap-servers:
+    - localhost:9092
+    consumer:
+      group-id: seetgroupid
+  cloud:
+    function:
+      definition: consumerBinding; processorBinding; producerBinding
+    stream:
+      bindings:
+        consumerBinding-in-0:
+          destination: consumer-topic
+        processorBinding-in-0:
+          destination: processor-topic
+        processorBinding-out-0:
+          destination: consumer-topic
+        producerBinding-out-0:
+          destination: processor-topic
+
+#        order-homedelivery-output-channel:
+#          destination: home-service
+#        order-takeaway-output-channel:
+#          destination: takeaway-service
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
